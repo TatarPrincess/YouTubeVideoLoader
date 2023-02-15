@@ -16,10 +16,6 @@ public class VideoLoader : Command
     {
         var youtube = new YoutubeClient();
 
-        //await youtube.Videos.DownloadAsync(url,
-        //    @"C:\Store\C#\SF\Patterns\Patterns_part2\18.4\YouTubeVideoLoader\bin\Debug\net7.0",
-        //    builder => builder.SetPreset(ConversionPreset.UltraFast));
-
         var streamManifest = await youtube.Videos.Streams.GetManifestAsync(url);
         var streamInfo = streamManifest.GetMuxedStreams().GetWithHighestVideoQuality();
         await youtube.Videos.Streams.DownloadAsync(streamInfo, $"video.{streamInfo.Container}");
